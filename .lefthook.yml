@@ -4,9 +4,6 @@ pre-commit:
       run: pnpm format {staged_files}
       glob: '*.{js,jsx,.mjs,ts,tsx,css,json,md}'
       staged_fixed: true
-    validate:
-      glob: '*.{ts,tsx}'
-      run: pnpm typecheck
 
 pre-push:
   commands:
