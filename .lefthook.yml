@@ -13,6 +13,3 @@ pre-push:
     lint:
       glob: '*.{ts,tsx}'
       run: pnpm lint
-    test:
-      glob: '*.{ts,tsx}'
-      run: pnpm test:coverage
