@@ -1,3 +1,4 @@
+import { Sidebar } from '@/components/sidebar';
 import '@/styles/globals.css';
 
 import type { Metadata } from 'next';
@@ -23,13 +24,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={cn('font-sans', inter.variable)}>
       <body className={`${inter.variable} antialiased bg-gray-900 text-white`}>
-        <main className="flex h-screen">
-          <section className="relative flex-1 overflow-auto min-w-0">
+        <section className="flex h-screen">
+          <Sidebar />
+          <main className="relative flex-1 overflow-auto min-w-0">
             <div className="p-4 sm:p-6 md:p-8 max-w-full md:max-w-3xl mx-auto h-full">
               {children}
             </div>
-          </section>
-        </main>
+          </main>
+        </section>
       </body>
     </html>
   );
