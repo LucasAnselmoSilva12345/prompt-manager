@@ -55,6 +55,16 @@ describe('SidebarContent', () => {
       expect(screen.getByText(input[0].title)).toBeInTheDocument();
       expect(screen.getAllByRole('paragraph')).toHaveLength(input.length);
     });
+
+    it('should render search input field when user to type', async () => {
+      const text = 'Create Garden Images';
+      makeSut();
+      const searchInput = screen.getByPlaceholderText('Buscar prompts...');
+
+      await user.type(searchInput, text);
+
+      expect(searchInput).toHaveValue(text);
+    });
   });
 
   describe('Collapsed / Expanded', () => {
@@ -94,8 +104,8 @@ describe('SidebarContent', () => {
   describe('New Prompt', () => {
     it('should redirect user to the new prompt page', async () => {
       makeSut();
-
       const newButton = screen.getByRole('button', { name: 'Novo prompt' });
+
       await user.click(newButton);
 
       expect(pushMock).toHaveBeenCalledWith('/new');
