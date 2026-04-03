@@ -1,6 +1,6 @@
 'use server';
 
-import { SearchPromptsUseCasa } from '@/core/application/prompts/search-prompts.use-case';
+import { SearchPromptsUseCase } from '@/core/application/prompts/search-prompts.use-case';
 import { PromptSummary } from '@/core/domain/prompts/prompt.entity';
 import { PrismaPromptRepository } from '@/infra/repository/prisma-prompt.repository';
 import { prisma } from '@/lib/prisma';
@@ -18,7 +18,7 @@ export async function searchPromptAction(
   const term = String(formData.get('q') ?? '').trim();
 
   const repository = new PrismaPromptRepository(prisma);
-  const useCase = new SearchPromptsUseCasa(repository);
+  const useCase = new SearchPromptsUseCase(repository);
 
   try {
     const results = await useCase.execute(term);
