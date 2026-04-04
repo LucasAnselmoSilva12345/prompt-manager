@@ -13,14 +13,6 @@ jest.mock('next/navigation', () => ({
   useSearchParams: () => mockSearchParams,
 }));
 
-jest.mock('@/lib/prisma', () => ({
-  prisma: {
-    prompt: {
-      findMany: jest.fn(),
-    },
-  },
-}));
-
 const initialPrompts = [
   {
     id: '1',
