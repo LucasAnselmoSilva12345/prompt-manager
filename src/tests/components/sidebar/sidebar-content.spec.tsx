@@ -95,6 +95,31 @@ describe('SidebarContent', () => {
       expect(expandadButton).not.toBeInTheDocument();
     });
 
+    it('should expand when button expanded is clicked', async () => {
+      makeSut();
+
+      const collapseButton = screen.getByRole('button', {
+        name: /Minimizar sidebar/i,
+      });
+      await user.click(collapseButton);
+
+      const expandadButton = screen.getByRole('button', {
+        name: /Expandir sidebar/i,
+      });
+      await user.click(expandadButton);
+
+      expect(
+        screen.getByRole('button', {
+          name: /Minimizar sidebar/i,
+        })
+      ).toBeVisible();
+      expect(
+        screen.getByRole('navigation', {
+          name: /Lista de prompts/i,
+        })
+      ).toBeVisible();
+    });
+
     it('should be contract and show expanded button', async () => {
       makeSut();
 
@@ -166,6 +191,33 @@ describe('SidebarContent', () => {
 
       const lastClearCall = pushMock.mock.calls.at(-1);
       expect(lastClearCall?.[0]).toBe('/');
+    });
+
+    it('should form submit when type in the search field', async () => {
+      const submitSpy = jest
+        .spyOn(HTMLFormElement.prototype, 'requestSubmit')
+        .mockImplementation(() => undefined);
+      makeSut();
+
+      const searchInput = screen.getByPlaceholderText('Buscar prompts...');
+
+      await user.type(searchInput, 'AI');
+
+      expect(submitSpy).toHaveBeenCalled();
+      submitSpy.mockRestore();
+    });
+
+    it('shoud form submit automatily build where have query', async () => {
+      const submitSpy = jest
+        .spyOn(HTMLFormElement.prototype, 'requestSubmit')
+        .mockImplementation(() => undefined);
+      const text = 'text';
+      const searchParams = new URLSearchParams(`q=${text}`);
+      mockSearchParams = searchParams;
+      makeSut();
+
+      expect(submitSpy).toHaveBeenCalled();
+      submitSpy.mockRestore();
     });
 
     it('should start search input field with search param', () => {
